@@ -1,0 +1,109 @@
+<!--pages/businessDetails/businessDetails.wxml-->
+<view class="business-details-page">
+  <view class="top-container">
+    <view class="inner-container">
+      <view class="page-header">
+        <view class="time">{{echartsData.showDate}}</view>
+        <view class="header-right">
+          <text>订单总金额（元）</text>
+        </view>
+      </view>
+      <view class="total-money">{{isShoweyes?echartsData.orderPriceCountRespVo.allTotalPrice||0:'****'}}</view>
+      <!-- 仅店主可见 -->
+      <view class="arrival-date" bindtap="handeltosee">
+        <text class="txt">待付款订单</text>
+        <text class="arrival-date-money">{{isShoweyes?echartsData.orderPriceCountRespVo.totalUnBackMoney||0:'****'}}</text>
+      </view>
+      <view class="order-container">
+        <view class="order-item">
+          <text>当日订单总数</text>
+          <view>{{isShoweyes?echartsData.orderPriceCountRespVo.totalOrderCount||0:'****'}}</view>
+        </view>
+        <view class="order-item">
+          <text>当日客单价</text>
+          <view>{{isShoweyes?echartsData.orderPriceCountRespVo.averageValue||0:'****'}}</view>
+        </view>
+        <view class="order-item">
+          <text>当日新增客户数</text>
+          <view>{{isShoweyes?echartsData.shopPersonInfoRespVo.customer||0:'****'}}</view>
+        </view>
+      </view>
+      <view class="store-container">
+        <view class="store-item">
+          <view>店铺业务员数</view>
+          <text>{{isShoweyes?echartsData.shopPersonInfoRespVo.shopSalesman||0:'****'}}</text>
+        </view>
+        <view class="store-item">
+          <view>店铺潜客总数</view>
+          <text>{{isShoweyes?echartsData.shopPersonInfoRespVo.potentialCustomer||0:'****'}}</text>
+        </view>
+        <view class="store-item">
+          <view>店铺客户总数</view>
+          <text>{{isShoweyes?echartsData.shopPersonInfoRespVo.totalCustomer||0:'****'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="content">
+    <view class="canvas-container">
+      <view class="canvas-head">
+        <view class="canvas-title">近7日交易额趋势</view>
+        <view class="head-right" wx:if="{{isShoweyes}}">
+          <view class="head-right-item">
+            <text>同比</text>
+            <text class="count count-up">12.34%</text>
+            <view class="triangle triangle-up"></view>
+          </view>
+          <view class="head-right-item">
+            <text>环比</text>
+            <text class="count count-down">12.34%</text>
+            <view class="triangle triangle-down"></view>
+          </view>
+        </view>
+      </view>
+      <view class="echarts-container" hidden="{{!isShoweyes || !echartsData.totalRecentRansactions.allTotalMoney}}">
+        <ec-canvas id="mychart-dom-turnover" canvas-id="mychart-turnover" ec="{{ turnoverEc }}"></ec-canvas>
+      </view>
+    </view>
+    <view class="canvas-container">
+      <view class="canvas-head">
+        <view class="canvas-title">近7日拉新客户数趋势</view>
+        <view class="head-right" wx:if="{{isShoweyes}}">
+          <view class="head-right-item">
+            <text>同比</text>
+            <text class="count count-up">12.34%</text>
+            <view class="triangle triangle-up"></view>
+          </view>
+          <view class="head-right-item">
+            <text>环比</text>
+            <text class="count count-down">12.34%</text>
+            <view class="triangle triangle-down"></view>
+          </view>
+        </view>
+      </view>
+      <view class="echarts-container" hidden="{{!isShoweyes || !echartsData.shopNewCustomerRespVo.allNewCustomer}}">
+        <ec-canvas id="mychart-dom-customer" canvas-id="mychart-customer" ec="{{ customerEc }}"></ec-canvas>
+      </view>
+    </view>
+    <view class="canvas-container">
+      <view class="canvas-head">
+        <view class="canvas-title">近7日客单价趋势</view>
+        <view class="head-right" wx:if="{{isShoweyes}}">
+          <view class="head-right-item">
+            <text>同比</text>
+            <text class="count count-up">12.34%</text>
+            <view class="triangle triangle-up"></view>
+          </view>
+          <view class="head-right-item">
+            <text>环比</text>
+            <text class="count count-down">12.34%</text>
+            <view class="triangle triangle-down"></view>
+          </view>
+        </view>
+      </view>
+      <view class="echarts-container" hidden="{{!isShoweyes || !echartsData.customerOrderAverageRespVo.customerAverage}}">
+        <ec-canvas id="mychart-dom-price" canvas-id="mychart-price" ec="{{ priceEc }}"></ec-canvas>
+      </view>
+    </view>
+  </view>
+</view>
